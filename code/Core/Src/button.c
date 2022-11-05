@@ -89,10 +89,6 @@ void fms_for_button(){
 			}
 			break;
 		case BUTTON_PRESSED_3S:
-
-			if(button_buffer[i] == BUTTON_IS_PRESSED){
-				flag_for_pressed_3s[i] = 1;
-			}
 			if(button_buffer[i] == BUTTON_IS_RELEASED){
 				state_of_button[i] = BUTTON_RELEASED;
 			}

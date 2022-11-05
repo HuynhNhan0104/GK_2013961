@@ -39,5 +39,9 @@ extern int state_of_system;
 //finite state machine for long pressed buttons
 #define LONG_INCREASE																					32
 #define LONG_DECREASE																					33
+#define TIME_OUT_10S																						34
+
+
+
 
 #endif /* INC_GLOBAL_H_ */
