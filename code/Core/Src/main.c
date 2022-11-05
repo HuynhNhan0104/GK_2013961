@@ -114,26 +114,26 @@ HAL_GPIO_WritePin(GPIOB, GREEN3_Pin, SET);
   while (1)
   {
 	  fms_for_button();
-//	 if(is_pressed(0)){
-//		 HAL_GPIO_TogglePin(GPIOB, RED1_Pin);
-//	 }
-//	 if(is_pressed_1s(0)){
-//	 		 HAL_GPIO_TogglePin(GPIOB, YELLOW1_Pin);
-//	 	 }
-//	 if(is_double_click(0)){
-//	 		 HAL_GPIO_TogglePin(GPIOB, GREEN1_Pin);
-//	 	 }
-//
-//
-//	 if(is_pressed(1)){
-//		 HAL_GPIO_TogglePin(GPIOB, RED2_Pin);
-//	 }
-//	 if(is_pressed_1s(1)){
-//			 HAL_GPIO_TogglePin(GPIOB, YELLOW2_Pin);
-//	}
-//	 if(is_double_click(1)){
-//			 HAL_GPIO_TogglePin(GPIOB, GREEN2_Pin);
-//	 }
+	 if(is_pressed(0)){
+		 HAL_GPIO_TogglePin(GPIOB, RED1_Pin);
+	 }
+	 if(is_pressed_1s(0)){
+	 		 HAL_GPIO_TogglePin(GPIOB, YELLOW1_Pin);
+	 	 }
+	 if(is_double_click(0)){
+	 		 HAL_GPIO_TogglePin(GPIOB, GREEN1_Pin);
+	 	 }
+
+
+	 if(is_pressed(1)){
+		 HAL_GPIO_TogglePin(GPIOB, RED2_Pin);
+	 }
+	 if(is_pressed_1s(1)){
+			 HAL_GPIO_TogglePin(GPIOB, YELLOW2_Pin);
+	}
+	 if(is_double_click(1)){
+			 HAL_GPIO_TogglePin(GPIOB, GREEN2_Pin);
+	 }
 
 
 	 	 if(is_pressed(2)){
