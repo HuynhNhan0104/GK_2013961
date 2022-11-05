@@ -7,6 +7,11 @@
 
 #ifndef SRC_GLOBAL_C_
 #define SRC_GLOBAL_C_
+#include "global.h"
+
+int counter = 9;
+int state_of_system = NORMAL;
+
 
 
 

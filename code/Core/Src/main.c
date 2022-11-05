@@ -25,6 +25,8 @@
 #include "global.h"
 #include "timer.h"
 #include "button.h"
+#include "led_7_seg.h"
+#include "fsm_simple_buttons.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -96,56 +98,17 @@ HAL_TIM_Base_Start_IT(&htim2);
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-
-HAL_GPIO_WritePin(GPIOB, RED1_Pin, SET);
-HAL_GPIO_WritePin(GPIOB, YELLOW1_Pin, SET);
-HAL_GPIO_WritePin(GPIOB, GREEN1_Pin, SET);
-
-HAL_GPIO_WritePin(GPIOB, RED2_Pin, SET);
-HAL_GPIO_WritePin(GPIOB, YELLOW2_Pin, SET);
-HAL_GPIO_WritePin(GPIOB, GREEN2_Pin, SET);
-
-HAL_GPIO_WritePin(GPIOB, RED3_Pin, SET);
-HAL_GPIO_WritePin(GPIOB, YELLOW3_Pin, SET);
-HAL_GPIO_WritePin(GPIOB, GREEN3_Pin, SET);
-
+counter = 9;
+set_timer(3,1000);
+state_of_system = NORMAL;
 
 
   while (1)
   {
+
+
 	  fms_for_button();
-	 if(is_pressed(0)){
-		 HAL_GPIO_TogglePin(GPIOB, RED1_Pin);
-	 }
-	 if(is_pressed_1s(0)){
-	 		 HAL_GPIO_TogglePin(GPIOB, YELLOW1_Pin);
-	 	 }
-	 if(is_double_click(0)){
-	 		 HAL_GPIO_TogglePin(GPIOB, GREEN1_Pin);
-	 	 }
-
-
-	 if(is_pressed(1)){
-		 HAL_GPIO_TogglePin(GPIOB, RED2_Pin);
-	 }
-	 if(is_pressed_1s(1)){
-			 HAL_GPIO_TogglePin(GPIOB, YELLOW2_Pin);
-	}
-	 if(is_double_click(1)){
-			 HAL_GPIO_TogglePin(GPIOB, GREEN2_Pin);
-	 }
-
-
-	 	 if(is_pressed(2)){
-			 HAL_GPIO_TogglePin(GPIOB, RED3_Pin);
-		}
-		if(is_pressed_1s(2)){
-			 HAL_GPIO_TogglePin(GPIOB, YELLOW3_Pin);
-		}
-		if(is_double_click(2)){
-			 HAL_GPIO_TogglePin(GPIOB, GREEN3_Pin);
-		}
-
+	  fsm_simple_buttons_run();
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -247,22 +210,29 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOB_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOB, RED1_Pin|YELLOW1_Pin|GREEN1_Pin|RED2_Pin
-                          |YELLOW2_Pin|GREEN2_Pin|RED3_Pin|YELLOW3_Pin
-                          |GREEN3_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(LED_RED_GPIO_Port, LED_RED_Pin, GPIO_PIN_RESET);
 
-  /*Configure GPIO pins : BUTTON0_Pin BUTTON1_Pin BUTTON2_Pin */
-  GPIO_InitStruct.Pin = BUTTON0_Pin|BUTTON1_Pin|BUTTON2_Pin;
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(GPIOB, LED_7SEG_A_Pin|LED_7SEG_B_Pin|LED_7SEG_C_Pin|LED_7SEG_D_Pin
+                          |LED_7SEG_E_Pin|LED_7SEG_F_Pin|LED_7SEG_G_Pin, GPIO_PIN_RESET);
+
+  /*Configure GPIO pins : RESET_Pin INC_Pin DEC_Pin */
+  GPIO_InitStruct.Pin = RESET_Pin|INC_Pin|DEC_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_PULLUP;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : RED1_Pin YELLOW1_Pin GREEN1_Pin RED2_Pin
-                           YELLOW2_Pin GREEN2_Pin RED3_Pin YELLOW3_Pin
-                           GREEN3_Pin */
-  GPIO_InitStruct.Pin = RED1_Pin|YELLOW1_Pin|GREEN1_Pin|RED2_Pin
-                          |YELLOW2_Pin|GREEN2_Pin|RED3_Pin|YELLOW3_Pin
-                          |GREEN3_Pin;
+  /*Configure GPIO pin : LED_RED_Pin */
+  GPIO_InitStruct.Pin = LED_RED_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(LED_RED_GPIO_Port, &GPIO_InitStruct);
+
+  /*Configure GPIO pins : LED_7SEG_A_Pin LED_7SEG_B_Pin LED_7SEG_C_Pin LED_7SEG_D_Pin
+                           LED_7SEG_E_Pin LED_7SEG_F_Pin LED_7SEG_G_Pin */
+  GPIO_InitStruct.Pin = LED_7SEG_A_Pin|LED_7SEG_B_Pin|LED_7SEG_C_Pin|LED_7SEG_D_Pin
+                          |LED_7SEG_E_Pin|LED_7SEG_F_Pin|LED_7SEG_G_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
