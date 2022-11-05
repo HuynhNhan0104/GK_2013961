@@ -37,7 +37,6 @@ extern int state_of_system;
 #define DECREASE																							23
 
 //finite state machine for long pressed buttons
-#define LONG_RESET																						31
 #define LONG_INCREASE																					32
 #define LONG_DECREASE																					33
 

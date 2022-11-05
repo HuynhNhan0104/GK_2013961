@@ -26,7 +26,7 @@ extern int button_buffer[NUMBER_OF_BUTTON];
 
 int is_pressed(int index);
 int is_pressed_3s(int index);
-
+int is_button_released(int index);
 
 void read_input();
 void fms_for_button();

@@ -30,7 +30,10 @@ int is_pressed_3s(int index){
 	}
 	return 0;
 }
-
+int is_button_released(int index){
+	if(button_buffer[index] == BUTTON_IS_RELEASED) return 1;
+	return 0;
+}
 
 
 
@@ -39,9 +42,6 @@ int register0_key[NUMBER_OF_BUTTON] = {[0 ... NUMBER_OF_BUTTON-1] = BUTTON_IS_RE
 int register1_key[NUMBER_OF_BUTTON] = {[0 ... NUMBER_OF_BUTTON-1] = BUTTON_IS_RELEASED};
 int register2_key[NUMBER_OF_BUTTON] = {[0 ... NUMBER_OF_BUTTON-1] = BUTTON_IS_RELEASED};
 int button_buffer[NUMBER_OF_BUTTON] = {[0 ... NUMBER_OF_BUTTON-1] = BUTTON_IS_RELEASED};
-
-
-
 void read_input(){
 	for(int i = 0 ; i < NUMBER_OF_BUTTON; ++i){
 		register0_key[i] = register1_key[i];
@@ -78,6 +78,7 @@ void fms_for_button(){
 
 			break;
 		case BUTTON_PRESSED:
+
 			if(is_timer_timeout(i)){
 				flag_for_pressed_3s[i] = 1;
 				state_of_button[i] = BUTTON_PRESSED_3S;
@@ -88,6 +89,10 @@ void fms_for_button(){
 			}
 			break;
 		case BUTTON_PRESSED_3S:
+
+			if(button_buffer[i] == BUTTON_IS_PRESSED){
+				flag_for_pressed_3s[i] = 1;
+			}
 			if(button_buffer[i] == BUTTON_IS_RELEASED){
 				state_of_button[i] = BUTTON_RELEASED;
 			}
