@@ -13,6 +13,7 @@
 //timer 1 for button 1 ( index = 1)
 //timer 2 for button 2 ( index = 2)
 //timer 3 for system count down ( index = 3)
+// timer 4 for linking led red ( index = 4)
 
 
 extern int timer_counter[NUMBER_OF_TIMER];

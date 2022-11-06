@@ -98,14 +98,17 @@ HAL_TIM_Base_Start_IT(&htim2);
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-counter = 7;
-display_led_7seg(counter);
-set_timer(3, 10000);
-state_of_system = NORMAL;
+
+
+
+state_of_system = INIT;
+
 HAL_GPIO_WritePin(GPIOA, LED_RED_Pin, GPIO_PIN_SET);
 
   while (1)
   {
+	  blinking_led_red();
+	  display_led_7seg(counter);
 	  fms_for_button();
 	  fsm_simple_buttons_run();
 	  fsm_long_buttons_run();

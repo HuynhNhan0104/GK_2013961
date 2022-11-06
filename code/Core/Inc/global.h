@@ -29,12 +29,11 @@ extern int state_of_system;
 
 
 //finite state machine for single buttons
-
-
-#define NORMAL																								20
-#define RESET																									21
-#define INCREASE																							22
-#define DECREASE																							23
+#define INIT																										20
+#define NORMAL																								21
+#define RESET																									22
+#define INCREASE																							23
+#define DECREASE																							24
 
 //finite state machine for long pressed buttons
 #define LONG_INCREASE																					32

@@ -85,10 +85,12 @@ void fms_for_button(){
 			}
 
 			if(button_buffer[i] == BUTTON_IS_RELEASED){
-				state_of_button[i] = BUTTON_RELEASED;;
+				clear_timer(i);
+				state_of_button[i] = BUTTON_RELEASED;
 			}
 			break;
 		case BUTTON_PRESSED_3S:
+
 			if(button_buffer[i] == BUTTON_IS_RELEASED){
 				state_of_button[i] = BUTTON_RELEASED;
 			}

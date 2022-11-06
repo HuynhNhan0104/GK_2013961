@@ -8,7 +8,7 @@
   <PWI>
    <POPUP w="800" x="48" flags="00000002" y="160" h="200" pid="0" iid="-1">
     <PROPERTIES>
-     <ITEM name="Message Column Width">540</ITEM>
+     <ITEM name="Message Column Width">661</ITEM>
      <ITEM name="ShowGrid">No</ITEM>
      <ITEM name="Source Column Width">100</ITEM>
      <ITEM name="Time Column Width">120</ITEM>
@@ -334,9 +334,9 @@
    </POPUP>
    <POPUP w="600" x="688" flags="0000002a" y="642" h="400" pid="100" iid="1">
     <PROPERTIES>
-     <ITEM name="Breakpoint 0">"",800051E,0000,482C,B647,-2056872688
+     <ITEM name="Breakpoint 0">"",8000542,0000,482C,B647,-2056872688
 </ITEM>
-     <ITEM name="Breakpoint 1">"",800051E,0000,482C,B647,-2056872688
+     <ITEM name="Breakpoint 1">"",8000538,0000,482C,B647,-2056872688
 </ITEM>
      <ITEM name="CaseSensitive">No</ITEM>
      <ITEM name="DISPADDRS">Yes</ITEM>
