@@ -458,8 +458,8 @@ void blinking_led_red(){
  80003c4:	2120      	movs	r1, #32
  80003c6:	4805      	ldr	r0, [pc, #20]	; (80003dc <blinking_led_red+0x28>)
  80003c8:	f001 f8d7 	bl	800157a <HAL_GPIO_TogglePin>
-		set_timer(4, 1000);
- 80003cc:	f44f 717a 	mov.w	r1, #1000	; 0x3e8
+		set_timer(4, 500);
+ 80003cc:	f44f 71fa 	mov.w	r1, #500	; 0x1f4
  80003d0:	2004      	movs	r0, #4
  80003d2:	f000 fd17 	bl	8000e04 <set_timer>
 	}
@@ -493,6 +493,7 @@ void fsm_simple_buttons_run(){
  8000404:	0800051b 	.word	0x0800051b
  8000408:	0800056d 	.word	0x0800056d
 	case INIT:
+		// trang thai ban dau cua he thong
 		counter = 5;
  800040c:	4b73      	ldr	r3, [pc, #460]	; (80005dc <fsm_simple_buttons_run+0x1fc>)
  800040e:	2205      	movs	r2, #5
@@ -511,8 +512,8 @@ void fsm_simple_buttons_run(){
  8000426:	f242 7110 	movw	r1, #10000	; 0x2710
  800042a:	2003      	movs	r0, #3
  800042c:	f000 fcea 	bl	8000e04 <set_timer>
-		set_timer(4, 1000);
- 8000430:	f44f 717a 	mov.w	r1, #1000	; 0x3e8
+		set_timer(4, 500);
+ 8000430:	f44f 71fa 	mov.w	r1, #500	; 0x1f4
  8000434:	2004      	movs	r0, #4
  8000436:	f000 fce5 	bl	8000e04 <set_timer>
 		state_of_system = NORMAL;
@@ -524,8 +525,8 @@ void fsm_simple_buttons_run(){
  8000440:	e0c7      	b.n	80005d2 <fsm_simple_buttons_run+0x1f2>
 
 	case NORMAL:
-		//todo
-		//Button RESET is pressed
+		// O Trang thai NORMAL he thong luc nay se ko lam gi
+		//Button RESET(index = 0) duoc nhan se chuyen sang trang thai RESET
 		if( is_pressed(0) ){
  8000442:	2000      	movs	r0, #0
  8000444:	f7ff fe82 	bl	800014c <is_pressed>
@@ -540,7 +541,7 @@ void fsm_simple_buttons_run(){
  8000456:	2216      	movs	r2, #22
  8000458:	601a      	str	r2, [r3, #0]
 		}
-		//Button INC is pressed
+		//Button INC (index = 1) duoc nhan se chuyen sang trang thai INCREASE
 		if( is_pressed(1) ){
  800045a:	2001      	movs	r0, #1
  800045c:	f7ff fe76 	bl	800014c <is_pressed>
@@ -569,7 +570,7 @@ void fsm_simple_buttons_run(){
  8000486:	2217      	movs	r2, #23
  8000488:	601a      	str	r2, [r3, #0]
 		}
-		//Button DEC is pressed
+		//Button DEC (index = 2) duoc nhan se chuyen sang trang thai  DECREASE
 		if( is_pressed(2) ){
  800048a:	2002      	movs	r0, #2
  800048c:	f7ff fe5e 	bl	800014c <is_pressed>
@@ -600,7 +601,7 @@ void fsm_simple_buttons_run(){
  80004ba:	601a      	str	r2, [r3, #0]
 		}
 
-		//time out when system do nothing
+		//Khi het 10s khong lam gi he thong se chuyen sang trang thai TIME_OUT_10S
 		if(is_timer_timeout(3)){
  80004bc:	2003      	movs	r0, #3
  80004be:	f000 fcd3 	bl	8000e68 <is_timer_timeout>
@@ -636,18 +637,19 @@ void fsm_simple_buttons_run(){
  80004f4:	e066      	b.n	80005c4 <fsm_simple_buttons_run+0x1e4>
 
 	case RESET:
-		//todo
+		//dua counter ve 0;
 		counter = 0;
  80004f6:	4b39      	ldr	r3, [pc, #228]	; (80005dc <fsm_simple_buttons_run+0x1fc>)
  80004f8:	2200      	movs	r2, #0
  80004fa:	601a      	str	r2, [r3, #0]
-
+		// BUTTON RESET(index = 0) duoc tha se tro lai trang thai NORMAL
 		if( is_button_released(0)){
  80004fc:	2000      	movs	r0, #0
  80004fe:	f7ff fe61 	bl	80001c4 <is_button_released>
  8000502:	4603      	mov	r3, r0
  8000504:	2b00      	cmp	r3, #0
  8000506:	d05f      	beq.n	80005c8 <fsm_simple_buttons_run+0x1e8>
+			//set timer bang 10s(10000ms) de dem thoi gian ko lam gi cua he thong
 			set_timer(3,10000);
  8000508:	f242 7110 	movw	r1, #10000	; 0x2710
  800050c:	2003      	movs	r0, #3
@@ -662,7 +664,7 @@ void fsm_simple_buttons_run(){
  8000518:	e056      	b.n	80005c8 <fsm_simple_buttons_run+0x1e8>
 
 	case INCREASE:
-		//todo
+		// BUTTON INC(index = 1) duoc tha se tro lai trang thai NORMAL
 		if( is_button_released(1)){
  800051a:	2001      	movs	r0, #1
  800051c:	f7ff fe52 	bl	80001c4 <is_button_released>
@@ -679,13 +681,14 @@ void fsm_simple_buttons_run(){
  8000534:	601a      	str	r2, [r3, #0]
 		}
 
-		//Button INC is long pressed
+		//Button INC(index = 1) duoc nhan de 3s giay se chuyen sang trang thai LONG_INCREASE;
 		if( is_pressed_3s(1) ){
  8000536:	2001      	movs	r0, #1
  8000538:	f7ff fe26 	bl	8000188 <is_pressed_3s>
  800053c:	4603      	mov	r3, r0
  800053e:	2b00      	cmp	r3, #0
  8000540:	d044      	beq.n	80005cc <fsm_simple_buttons_run+0x1ec>
+			// tang counter len 1 moi 1 giay khi nut con duoc nhan de
 			++counter;
  8000542:	4b26      	ldr	r3, [pc, #152]	; (80005dc <fsm_simple_buttons_run+0x1fc>)
  8000544:	681b      	ldr	r3, [r3, #0]
@@ -731,13 +734,14 @@ void fsm_simple_buttons_run(){
  8000586:	601a      	str	r2, [r3, #0]
 		}
 
-		//Button DEC is long pressed
+		//BUTTON DEC (index = 2) đuoc tha se tro lai trang thai NORMAL
 		if( is_pressed_3s(2) ){
  8000588:	2002      	movs	r0, #2
  800058a:	f7ff fdfd 	bl	8000188 <is_pressed_3s>
  800058e:	4603      	mov	r3, r0
  8000590:	2b00      	cmp	r3, #0
  8000592:	d01d      	beq.n	80005d0 <fsm_simple_buttons_run+0x1f0>
+			// giam counter len 1 moi 1 giay khi nut con duoc nhan de
 			if(counter >0) --counter;
  8000594:	4b11      	ldr	r3, [pc, #68]	; (80005dc <fsm_simple_buttons_run+0x1fc>)
  8000596:	681b      	ldr	r3, [r3, #0]
@@ -923,6 +927,9 @@ void fsm_timeout_10s_run(){
  80006ba:	d155      	bne.n	8000768 <fsm_timeout_10s_run+0xb8>
 
 	case TIME_OUT_10S:
+		// cac trang thai khac khi 3 BUTTON ko duoc nhan se deu tro ve trang thai NORMAL
+		// O trang thai nay ta se giam counter di 1 moi 1 giay
+		//cho den khi counter = 0 thi ta se khong giam nua
 		if(counter > 0) {
  80006bc:	4b2e      	ldr	r3, [pc, #184]	; (8000778 <fsm_timeout_10s_run+0xc8>)
  80006be:	681b      	ldr	r3, [r3, #0]
@@ -947,17 +954,19 @@ void fsm_timeout_10s_run(){
  80006e4:	e002      	b.n	80006ec <fsm_timeout_10s_run+0x3c>
 			}
 		}
+		// khi counter = 0 ta se ko can set timer nua
 		else clear_timer(3);
  80006e6:	2003      	movs	r0, #3
  80006e8:	f000 fba6 	bl	8000e38 <clear_timer>
 
-		//Button RESET is pressed
+		//Button RESET(index = 0) duoc nhan
 		if( is_pressed(0) ){
  80006ec:	2000      	movs	r0, #0
  80006ee:	f7ff fd2d 	bl	800014c <is_pressed>
  80006f2:	4603      	mov	r3, r0
  80006f4:	2b00      	cmp	r3, #0
  80006f6:	d005      	beq.n	8000704 <fsm_timeout_10s_run+0x54>
+		    // clear timer truoc khi chuyen sang trang thai khac
 			clear_timer(3);
  80006f8:	2003      	movs	r0, #3
  80006fa:	f000 fb9d 	bl	8000e38 <clear_timer>
@@ -967,7 +976,7 @@ void fsm_timeout_10s_run(){
  8000702:	601a      	str	r2, [r3, #0]
 		}
 
-		//Button INC is pressed
+		//Button INC (index = 1) duoc nhan
 		if( is_pressed(1) ){
  8000704:	2001      	movs	r0, #1
  8000706:	f7ff fd21 	bl	800014c <is_pressed>
@@ -997,7 +1006,7 @@ void fsm_timeout_10s_run(){
  8000732:	601a      	str	r2, [r3, #0]
 		}
 
-		//Button DEC is pressed
+		//Button DEC (index = 2) duoc nhan
 		if( is_pressed(2) ){
  8000734:	2002      	movs	r0, #2
  8000736:	f7ff fd09 	bl	800014c <is_pressed>
