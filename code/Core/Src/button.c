@@ -7,7 +7,10 @@
  */
 #include "button.h"
 
+
+// gan cac gia trị ban dau cua state_of_button = BUTTON_RELEASED
 int state_of_button[NUMBER_OF_BUTTON] = {[0 ... NUMBER_OF_BUTTON - 1] = BUTTON_RELEASED};
+
 
 int flag_for_pressed[NUMBER_OF_BUTTON] = {0};
 int flag_for_pressed_3s[NUMBER_OF_BUTTON] = {0};

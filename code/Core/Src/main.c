@@ -112,6 +112,7 @@ HAL_GPIO_WritePin(GPIOA, LED_RED_Pin, GPIO_PIN_SET);
 	  fms_for_button();
 	  fsm_simple_buttons_run();
 	  fsm_long_buttons_run();
+	  fsm_timeout_10s_run();
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
